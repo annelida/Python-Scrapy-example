@@ -1,0 +1,324 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="fr" />
+		<meta name="description" content="Apercite : Générateur automatique de miniatures, screenshots, aperçus et AscreeN de sites Internet" />
+		<link rel="image_src" href="http://www.apercite.fr/img/fb.png" />
+		<title>Apercite: Générateur gratuit d'aperçus, screenshots et miniatures</title>
+
+                <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
+                <meta name="dc.language" content="fr" />
+                <meta name="dc.type" content="text" />
+                <meta name="dc.format" content="text/html" />
+		<meta name="geo.placename" content="France" />
+
+		<!--[if lt IE 7.]>
+			<script defer type="text/javascript" src="/js/pngfixe.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript" src="/js/principal.js"></script>
+
+		<script type="text/javascript" src="/js/shadowbox/shadowbox.js"></script>
+		<script type="text/javascript">
+		// <![CDATA[
+			Shadowbox.loadSkin('classique', '/js/shadowbox/habillages');
+			Shadowbox.loadLanguage('fr', '/js/shadowbox/langues');
+			window.onload = Shadowbox.init;
+		// ]]>
+		</script>
+		<script type="text/javascript">
+		// <![CDATA[
+			$(function(){
+				$.ajaxSetup({
+					type:  "POST",
+					url:   "/informations-statistiques.html",
+					data:  "demande=1",
+					cache: false,
+
+					success:function(message) {
+						$("#statistiques").html(message);
+					}
+				});
+
+				statistiques_apercites();
+				setInterval(statistiques_apercites, 10000);
+			});
+
+			function statistiques_apercites()
+			{
+				$.ajax();
+			}
+
+			function affichage_apercu(formulaire_apercu)
+			{
+				var parametre = '/affichage-apercite/';
+				var tab_taille = formulaire_apercu.taille.value.split("x");
+
+				if(tab_taille[0] && tab_taille[1])
+				{
+					var tailleL = tab_taille[0];
+					var tailleH = tab_taille[1];
+				}
+				else
+				{
+					var tailleL = 120;
+					var tailleH = 90;
+				}
+
+				parametre += tailleL + 'x' + tailleH + '/';
+
+				var javascript = 'oui';
+				if(formulaire_apercu.javascript.value == 'desactive')
+				{
+					javascript = 'non';
+				}
+
+				parametre += javascript + '/';
+				if ('' != formulaire_apercu.adresse.value) {
+				  parametre += formulaire_apercu.adresse.value;
+				} else {
+				  parametre += formulaire_apercu.adresse.placeholder;
+				}
+
+				Shadowbox.open({
+					player:'iframe',
+					title:formulaire_apercu.taille.value,
+					content:parametre,
+					width:tailleL,
+					height:tailleH
+				});
+
+				return false;
+			};
+		// ]]>
+		</script>
+		<link rel="stylesheet" media="screen" type="text/css" title="design" href="/itf/defaut/css/conception.css" />
+	</head>
+	<body>
+		<div id="contenant">
+			<div id="navbar">
+				<ul id="menu">
+					<li onclick="window.location='/';" id="page"><a href="/" title="Accueil">Accueil</a></li>
+					<li onclick="window.location='/api/doc/';"  class="lien"><a href="/api/doc/" title="API">API</a></li>
+					<li onclick="window.location='/extensions.html';"  class="lien"><a href="/extensions.html" title="Extensions">Extensions</a></li>
+					<li onclick="window.location='https://www.apercite.fr/abonnements.html';"  class="lien"><a href="https://www.apercite.fr/abonnements.html" title="Abonnements">Abonnements</a></li>
+					<li onclick="window.location='/ascreen.html';"  class="lien"><a href="/ascreen.html" title="AscreeN">AscreeN</a></li>
+					<li onclick="window.location='/faq.html';"  class="lien"><a href="/faq.html" title="Foire Aux Questions">FAQ</a></li>
+					<li onclick="window.location='/forum/';"  class="lien"><a href="/forum/" title="Forum">Forum</a></li>
+					<li onclick="window.location='https://www.apercite.fr/contact.html';"  class="lien"><a href="https://www.apercite.fr/contact.html" title="Contactez-nous">Contact</a></li>
+				</ul>
+			</div>
+
+			<div id="onglets">
+				<table id="elements">
+					<tr>
+						<td id="membre">
+							<table>
+								<tr>
+									<td class="bas-gauche"></td>
+									<td class="texte"><a href="https://www.apercite.fr/connexion.html" title="Connexion">Connexion</a></td>
+									<td class="bas-droit"></td>
+
+									<td class="espace">&nbsp;</td>
+									<td class="bas-gauche"></td>
+									<td class="texte"><a href="https://www.apercite.fr/inscription.html" title="Inscription">Inscription</a></td>
+									<td class="bas-droit"></td>
+
+									<td class="espace">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="logotype">
+				<table style="width: 100%;">
+					<tr>
+						<td style="padding-bottom: 3px;"><img src="/itf/defaut/img/logotype.png" width="169" height="47" alt="Logotype de Apercite" /></td>
+						<td style="background-image: url(/itf/defaut/img/logos/twitter.png); vertical-align: bottom; text-align: right; width: 75px;"><a href="http://twitter.com/Apercite" title="Suivez-nous sur Twitter !"><img src="/itf/defaut/img/logos/clic-twitter.png" alt="Suivez-nous sur Twitter" /></a></td>
+					</tr>
+				</table>
+			</div>
+
+<div id="corps"><br />
+  <div class="justifie">
+    <span class="titre">Présentation :</span><br />
+    <br />
+    Apercite est un service qui réalise automatiquement des <strong>miniatures de sites web</strong>, vous pourrez ainsi obtenir un <strong>aperçu d'un site</strong> en image de votre site en moins de 20 secondes. La générération des screenshots est automatique.<br />
+    Apercite vous propose différentes tailles de miniatures allant de 80x50 pixels jusqu'à 800x600 pixels.<br />
+    <br />
+    Nous proposons de générer le format <a href="/ascreen.html" title="AscreeN"><strong>Ascreen</strong></a> (120x90). Il s'agit d'une image qu'il faut placer à la racine de son site et la nommer <strong>ascreen.jpg</strong>. De nombreux sites annuaires vérifient la présence de cette image afin d'illustrer votre site.<br />
+    <br />
+    Afficher les miniatures sur votre site est <strong>totalement gratuit</strong> et nous ne demandons aucune obligation de mettre un lien sur votre site Internet.<br />
+    <br />
+    Ce service est notamment très intéressant pour les annuaires souhaitant afficher des miniatures.<br />
+    <br />
+    <span class="titre">Les avantages d'Apercite :</span><br />
+    <br />
+    <ul id="plus_apercite">
+      <li><a href="/api.html" title="API Apercite">API</a> pour gérer les miniatures depuis vos sites Internet</li>
+      <li><a href="https://www.apercite.fr/abonnements.html" title="Abonnements Apercite">Abonnements</a> à bas prix</li>
+      <li>Affichage des miniatures <strong>100% gratuit</strong> et <strong>illimité</strong></li>
+      <li>Miniatures générées en <strong>moins de 20 secondes</strong></li>
+      <li>Une vingtaine de tailles de screenshots disponibles</li>
+      <li>Prise en charge des animations <strong>Flash</strong>, <strong>JavaScript</strong></li>
+      <li>Miniatures accessibles en <strong>SSL</strong> (<strong>https</strong>)</li>
+      <li>Personnalisation de la miniature d'attente avec un <a href="https://www.apercite.fr/abonnements.html" title="Abonnements Apercite">abonnement</a></li>
+    </ul>
+    <br />
+    <span class="titre">Utilisation :</span><br />
+    <br />
+    <form action="/" method="post" onsubmit="affichage_apercu(this); return false;" id="formulaire_apercite">
+      <table>
+        <tr>
+          <td>
+            <label>
+              <input type="text" name="adresse" placeholder="http://www.freegli.com" id="adresse" class="big_address" />
+            </label>
+          </td>
+          <td rowspan="2" style="padding-left:20px; vertical-align:top;">
+            <table style="height:55px">
+              <tr>
+                <td style="padding-right:10px; text-align:right;">
+                  <label for="taille">
+                    Taille :
+                  </label>
+                </td>
+                <td>
+                  <select name="taille" id="taille" style="width:125px">
+                    <optgroup label="4:3">
+                      <option value="80x60">80x60</option>
+                      <option value="100x75">100x75</option>
+                      <option value="120x90" selected="selected">120x90 (Ascreen)</option>
+                      <option value="160x120">160x120</option>
+                      <option value="180x135">180x135</option>
+                      <option value="240x180">240x180</option>
+                      <option value="320x240">320x240</option>
+                      <option value="560x420">560x420</option>
+                      <option value="640x480">640x480</option>
+                      <option value="800x600">800x600</option>
+                    </optgroup>
+                    <optgroup label="16:10">
+                      <option value="80x50">80x50</option>
+                      <option value="120x75">120x75</option>
+                      <option value="160x100">160x100</option>
+                      <option value="200x125">200x125</option>
+                      <option value="240x150">240x150</option>
+                      <option value="320x200">320x200</option>
+                      <option value="560x350">560x350</option>
+                      <option value="640x400">640x400</option>
+                      <option value="800x500">800x500</option>
+                    </optgroup>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-right:10px; text-align:right;">
+                  <label for="javascript">
+                    JavaScript :
+                  </label>
+                </td>
+                <td>
+                  <select name="javascript" id="javascript" style="width:125px">
+                    <option value="active">Activé</option>
+                    <option value="desactive">Désactivé</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:10px; text-align:right">
+            <input type="submit" value="Apercite !" class="big_button" /><br />
+          </td>
+        </tr>
+      </table>
+      <br />
+      Si la miniature n'est pas encore créée, veuillez patientez quelques secondes.</p>
+    </form>
+    <br />
+    <span class="titre">Statistiques :</span><br />
+    <br />
+    <table>
+      <tr>
+        <td id="statistiques">
+          <strong></strong> screenshot affiché aujourd'hui.<br />
+          <strong></strong> adresse.<br />
+          <strong></strong> screenshot.<br />
+          <strong></strong> screenshot en attente.
+        </td>
+        <td><script type="text/javascript" src="/js/objet-flash.js"></script>
+<div id="contenant_graphique">
+<noscript>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" 
+width="420" height="160" id="ie_graphique" style="vertical-align:middle;">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="/flash/graphique-flash.swf?width=420&height=160&data=%2Finformations-statistiques.txt" />
+<param name="quality" value="high" />
+<param name="wmode" value="transparent" />
+<param name="bgcolor" value="#FFFFFF" />
+<embed src="/flash/graphique-flash.swf?data=%2Finformations-statistiques.txt" quality="high" bgcolor="#FFFFFF" width="420" height="160" name="graphique" align="middle" allowScriptAccess="sameDomain" 
+type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="graphique"/>
+</object>
+</noscript>
+</div>
+<script type="text/javascript">
+var so = new SWFObject("/flash/graphique-flash.swf", "graphique", "420", "160", "9", "#FFFFFF");
+so.addVariable("data", "%2Finformations-statistiques.txt");
+so.addParam("allowScriptAccess", "sameDomain");
+so.addParam("wmode", "transparent");
+so.write("contenant_graphique");
+</script></td>
+      </tr>
+      <tr>
+        <td colspan="2" id="stats_monthly"><div id="contenant_graphique_2">
+<noscript>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" 
+width="735" height="160" id="ie_graphique_2" style="vertical-align:middle;">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="/flash/graphique-flash.swf?width=735&height=160&data=%2Finformations-statistiques-mois.txt" />
+<param name="quality" value="high" />
+<param name="wmode" value="transparent" />
+<param name="bgcolor" value="#FFFFFF" />
+<embed src="/flash/graphique-flash.swf?data=%2Finformations-statistiques-mois.txt" quality="high" bgcolor="#FFFFFF" width="735" height="160" name="graphique_2" align="middle" allowScriptAccess="sameDomain" 
+type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="graphique_2"/>
+</object>
+</noscript>
+</div>
+<script type="text/javascript">
+var so = new SWFObject("/flash/graphique-flash.swf", "graphique_2", "735", "160", "9", "#FFFFFF");
+so.addVariable("data", "%2Finformations-statistiques-mois.txt");
+so.addParam("allowScriptAccess", "sameDomain");
+so.addParam("wmode", "transparent");
+so.write("contenant_graphique_2");
+</script></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+			<div id="bas">
+				<table style="width:100%">
+					<tr>
+						<td><a href="/en/">English Version</a><br/>
+						<br />
+						Partagez :
+							<a href="http://twitter.com/home/?status=G%C3%A9n%C3%A9rateur%20gratuit%20de%20miniatures%20de%20sites%20Internet%20http%3A%2F%2Fwww.apercite.fr%2F%20par%20@Apercite" title="Partagez Apercite sur Twitter"><img src="/itf/defaut/img/logos/twitter-16.png" alt="Partagez Apercite sur Twitter" width="16" height="16" style="vertical-align:middle" /></a>
+							&nbsp;
+							<a href="http://www.facebook.com/share.php?u=http://www.apercite.fr/&t=" title="Partagez Apercite sur Facebook"><img src="/itf/defaut/img/logos/facebook-16.png" alt="Partagez Apercite sur Facebook" width="16" height="16" style="vertical-align:middle" /></a>
+						<br />
+						<br />
+						© 2008 - 2016 Apercite - <a href="https://www.apercite.fr/contact.html" title="Contactez-nous">Contactez-nous</a> - <a href="/mentions-legales.html" title="Mentions légales">Mentions légales</a> - <a href="http://www.korleon-biz.com">Korleon-biz.com</a> - <a href="http://www.innastudio.com">Innastudio.com</a></td>
+						<td style="text-align:right; vertical-align:top;"><a href="https://www.gandi.net/ssl/secured/www.apercite.fr/21295/6ff15d7048?lang=fr" title="Site sÃ©curisÃ© par Gandi"><img src="/itf/defaut/img/logos/GandiSSL_B_standard_fr.png" width="79" height="39" alt="Site sÃ©curisÃ© par Gandi" /></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	<script type="text/javascript">/*<![CDATA[*/            var _gaq = _gaq || [];        _gaq.push(['_setAccount', 'UA-11143669-1']);        _gaq.push(['_trackPageview']);        (function() {        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);        })();                window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=        d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');        $.src='//cdn.zopim.com/?1C7sH1D9AheyEX1DYBWzP8qhV61E8e8V';z.t=+new Date;$.        type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');        $zopim(function(){            $zopim.livechat.bubble.setTitle('Une question ?');            $zopim.livechat.bubble.setText('Nous sommes à votre disposition pour vous renseigner et vous aider.');            $zopim.livechat.set({                language: 'fr'});            $zopim.livechat.bubble.hide();            $zopim.livechat.setOnStatus(function(status) {                switch (status) {                    case 'online':                    case 'away':                        $zopim.livechat.button.show();                    break;                    case 'offline':                        $zopim.livechat.button.hide();                    break;                }            });        });    /*]]>*/</script></body>
+</html>
+
