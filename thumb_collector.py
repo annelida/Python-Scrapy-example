@@ -17,9 +17,9 @@ for url in f:
     # save raw img on hard disc
     filename = url.split('//')[-1].replace('/', '_')
     logging.debug("This is images file name: %s" % (filename))
-    # with open("images/file01.jpg", "wb") as test:
-    #     test.write(resp.content)
-    #     test.close()
+    with open(filename, "wb") as img_file:
+        img_file.write(resp.content)
+        img_file.close()
 
 
 
