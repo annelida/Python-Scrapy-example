@@ -11,13 +11,15 @@ logger.setLevel(logging.WARNING)
 f = open('test_words.csv')
 for url in f:
     url = url.strip()
-    logging.debug("This is images url: %s" % url)
+    logging.debug("This is images url: %s" % (url))
     resp = requests.get(url)
     img = resp.raw
     # save raw img on hard disc
-    with open("images/file01.jpg", "wb") as test:
-        test.write(resp.content)
-        test.close()
+    filename = url.split('//')[-1].replace('/', '_')
+    logging.debug("This is images file name: %s" % (filename))
+    # with open("images/file01.jpg", "wb") as test:
+    #     test.write(resp.content)
+    #     test.close()
 
 
 
