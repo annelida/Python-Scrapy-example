@@ -1,16 +1,23 @@
 import requests
-import time
+import logging
+
+logger = logging.getLogger('thumbnails')
+hdlr = logging.FileHandler('thumbnails.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.WARNING)
 
 f = open('test_words.csv')
 for url in f:
     url = url.strip()
-    resp = requests.get('http://www.apercite.fr/api/apercite/320x240/yes/url')
+    logging.debug("This is images url: %s" % url)
+    resp = requests.get(url)
     img = resp.raw
     # save raw img on hard disc
-    time.sleep(20)
-    filename = url.split("//")[-1].replace('/', '_') + '.jpg'
-    print filename
-    # output = open("images/filename", "wb")
-    # output = open("images/file01.jpg", "wb")
-    # output.write(resp.content)
-    # output.close()
+    with open("images/file01.jpg", "wb") as test:
+        test.write(resp.content)
+        test.close()
+
+
+
